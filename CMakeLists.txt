@@ -7,7 +7,7 @@ find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
 add_subdirectory(glad/)
 
-add_executable(ET2M main.cpp)
+add_executable(ET2M main.cpp Shader.cpp Shader.hpp)
 
 target_link_libraries(ET2M glad glfw OpenGL::GL
                       pthread X11 Xrandr Xi dl Xxf86vm Xinerama Xcursor)
