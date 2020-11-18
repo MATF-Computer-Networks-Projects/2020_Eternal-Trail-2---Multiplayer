@@ -14,7 +14,7 @@ public:
     Shader(const  char * vertexShaderPath, const char * fragmentShaderPath);
     void use();
 
-    //TODO Make one generic function insted of the folowing ones:
+    //TODO Make one generic function instead of the following ones:
     void setBoolUniform(const std::string &name, bool value) const;
     void setIntUniform(const std::string &name, int value) const;
     void setFloatUniform(const std::string &name, float value) const;
