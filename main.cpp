@@ -1,5 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include "Shader.hpp"
 
@@ -67,6 +70,14 @@ int main() {
     //specify position of vertices color values inside buffer
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+
+    //GLM library test:
+    glm::vec4 vec(1.0, 2.0, 3.0, 1.0f);
+    glm::mat4 trans = glm::mat4(1.0f);
+    trans = glm::translate(trans, glm::vec3(2.0f, 2.0f, 2.0f));
+    vec = trans * vec;
+    std::cout << "Translated vector: " << vec.x << " " << vec.y << " " << vec.z << std::endl;
+    
 
     //render loop
     while(!glfwWindowShouldClose(window)){
