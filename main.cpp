@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <thread>
 #include <iostream>
 #include "Shader.hpp"
 
@@ -116,8 +117,11 @@ int main() {
     //TODO dva prozora u dve niti:
     // mozda je ovo dobro mesto da se naprave dve niti a kod ispod da bude zajednicki za obe
 
-    ThreadWindowFunction();
+    std::thread window1(ThreadWindowFunction);
+    std::thread window2(ThreadWindowFunction);
 
+    window1.join();
+    window2.join();
 
     return 0;
 }
