@@ -100,3 +100,18 @@ void Shader::setFloatUniform(const std::string &name, float value) const
 {
     glUniform1f(glGetUniformLocation(programID, name.c_str()), value);
 }
+
+void Shader::setModelUniform(const std::string &name, glm::mat4 value) const {
+    int modelLocation = glGetUniformLocation(programID, name.c_str());
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void Shader::setViewUniform(const std::string &name, glm::mat4 value) const {
+    int viewLocation = glGetUniformLocation(programID, name.c_str());
+    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void Shader::setProjectionUniform(const std::string &name, glm::mat4 value) const {
+    int projectionLocation = glGetUniformLocation(programID, name.c_str());
+    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(value));
+}

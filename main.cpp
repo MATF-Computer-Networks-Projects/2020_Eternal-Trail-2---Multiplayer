@@ -9,21 +9,11 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-int main() {
 
-    //initialize glfw
-    if(!glfwInit()){
-        std::cout << "Failed to initialize GLFW!" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    //set up glfw version : 3.3
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    //set up core-profile mode
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+void ThreadWindowFunction(){
     //create window object
     GLFWwindow* window = glfwCreateWindow(800,600,"Set The Stage!", NULL, NULL);
+    //GLFWwindow* window2 = glfwCreateWindow(800,600,"Set The Stage!", NULL, NULL);
     if(window == NULL){
         std::cout << "Window creation failed!" << std::endl;
         glfwTerminate();
@@ -49,9 +39,9 @@ int main() {
     //define positions and color of triangle vertices
     float vertices[] = {
             // positions         // colors
-             0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
             -0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,
-             0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f
+            0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f
     };
 
     //create and bind buffers
@@ -71,12 +61,6 @@ int main() {
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    //GLM library test:
-    glm::vec4 vec(1.0, 2.0, 3.0, 1.0f);
-    glm::mat4 trans = glm::mat4(1.0f);
-    trans = glm::translate(trans, glm::vec3(2.0f, 2.0f, 2.0f));
-    vec = trans * vec;
-    std::cout << "Translated vector: " << vec.x << " " << vec.y << " " << vec.z << std::endl;
 
     //render loop
     while(!glfwWindowShouldClose(window)){
@@ -89,6 +73,17 @@ int main() {
         //use our program object with linked shaders
         shader.use();
         glBindVertexArray(VAO);
+
+        //GLM: tiangle rotation
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = glm::mat4(1.0f);
+        glm::mat4 projection = glm::mat4(1.0f);
+        model = glm::rotate(model, (float)glfwGetTime()*glm::radians(50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
+        shader.setModelUniform("model", model);
+        shader.setViewUniform("view", view);
+        //shader.setProjectionUniform("projection", projection);
+
         //draw triangle
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -102,6 +97,28 @@ int main() {
     glfwDestroyWindow(window);
     //clean up all the resources
     glfwTerminate();
+
+}
+
+int main() {
+
+    //initialize glfw
+    if(!glfwInit()){
+        std::cout << "Failed to initialize GLFW!" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    //set up glfw version : 3.3
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    //set up core-profile mode
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    //TODO dva prozora u dve niti:
+    // mozda je ovo dobro mesto da se naprave dve niti a kod ispod da bude zajednicki za obe
+
+    ThreadWindowFunction();
+
+
     return 0;
 }
 
