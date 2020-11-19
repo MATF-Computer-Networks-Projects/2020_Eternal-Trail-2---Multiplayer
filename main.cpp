@@ -77,7 +77,6 @@ int main() {
     trans = glm::translate(trans, glm::vec3(2.0f, 2.0f, 2.0f));
     vec = trans * vec;
     std::cout << "Translated vector: " << vec.x << " " << vec.y << " " << vec.z << std::endl;
-    
 
     //render loop
     while(!glfwWindowShouldClose(window)){

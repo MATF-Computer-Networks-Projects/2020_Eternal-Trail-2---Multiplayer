@@ -4,5 +4,5 @@ Endless-runner igra za dva igrača: svaki igrač se kreće po stazi koja se nepr
 - Biblioteke koje se koriste:
     - GLFW
     - GLAD
-    - Eigen
+    - GLM
     - biće navedene kasnije
