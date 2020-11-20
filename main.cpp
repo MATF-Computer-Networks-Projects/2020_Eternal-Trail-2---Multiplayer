@@ -125,6 +125,7 @@ void ThreadWindowFunction(){
         model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
         view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         projection = glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
+        //set coresponding unforms in vertex shader
         shader.setModelUniform("model", model);
         shader.setViewUniform("view", view);
         shader.setProjectionUniform("projection", projection);
