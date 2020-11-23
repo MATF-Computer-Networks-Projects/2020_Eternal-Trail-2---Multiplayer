@@ -8,7 +8,10 @@ find_package(OpenGL REQUIRED)
 add_subdirectory(glad/)
 add_subdirectory(glm/)
 
-add_executable(ET2M main.cpp Shader.cpp Shader.hpp)
+add_executable(ET2M main.cpp
+                Shader.cpp Shader.hpp
+                VertexBuffer.cpp VertexBuffer.hpp
+                IndexBuffer.cpp IndexBuffer.hpp)
 
 target_link_libraries(ET2M glm glad glfw OpenGL::GL
                       pthread X11 Xrandr Xi dl Xxf86vm Xinerama Xcursor glm)

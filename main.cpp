@@ -5,7 +5,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <thread>
 #include <iostream>
+
 #include "Shader.hpp"
+#include "VertexBuffer.hpp"
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -17,7 +19,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void ThreadWindowFunction(){
     //create window object
     GLFWwindow* window = glfwCreateWindow(WIDTH,HEIGHT,"Set The Stage!", NULL, NULL);
-    //GLFWwindow* window2 = glfwCreateWindow(800,600,"Set The Stage!", NULL, NULL);
     if(window == NULL){
         std::cout << "Window creation failed!" << std::endl;
         glfwTerminate();
@@ -89,14 +90,11 @@ void ThreadWindowFunction(){
     };
 
     //create and bind buffers
-    unsigned int VBO, VAO;
+    unsigned int VAO;
     glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
     glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    //fill buffer with vertices data
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    auto* VBO = new VertexBuffer(vertices, sizeof(vertices));
 
     //specify position of vertices coordinates inside buffer
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
@@ -141,6 +139,7 @@ void ThreadWindowFunction(){
 
     //destroy window
     glfwDestroyWindow(window);
+    delete(VBO);
     //clean up all the resources
     glfwTerminate();
 
