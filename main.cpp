@@ -140,8 +140,6 @@ void ThreadWindowFunction(){
     //destroy window
     glfwDestroyWindow(window);
     delete(VBO);
-    //clean up all the resources
-    glfwTerminate();
 
 }
 
@@ -159,11 +157,13 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     std::thread window1(ThreadWindowFunction);
-    //std::thread window2(ThreadWindowFunction);
+    std::thread window2(ThreadWindowFunction);
 
     window1.join();
-    //window2.join();
+    window2.join();
 
+    //clean up all the resources
+    glfwTerminate();
     return 0;
 }
 
