@@ -13,7 +13,7 @@ add_executable(ET2M main.cpp
                 VertexBuffer.cpp VertexBuffer.hpp
                 IndexBuffer.cpp IndexBuffer.hpp
                 VertexArray.cpp VertexArray.hpp
-                VertexBufferLayout.cpp VertexBufferLayout.hpp)
+                VertexBufferLayout.cpp VertexBufferLayout.hpp Renderer.cpp Renderer.hpp)
 
 target_link_libraries(ET2M glm glad glfw OpenGL::GL
                       pthread X11 Xrandr Xi dl Xxf86vm Xinerama Xcursor glm)
